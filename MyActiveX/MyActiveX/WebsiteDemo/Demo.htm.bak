@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h2>
+        Demo ActiveX
+    </h2>
+    <center>
+        <object id="MyActiveX" width="306px" height="167px" classid="clsid:D857B4F5-8684-453e-82C8-7F493CBE5592"
+            viewastext style="border-style:dashed">
+            <p>
+                Pon el texto que quieras mostrar si se abre la página con un browser no compatible
+                o si el ActiveX no está instalado correctamente.             
+            </p>
+        </object>
+    </center>
+    
+    <object id="ActiveXBio" name="ActiveXBio"   classid="clsid:49DC43E2-3EDE-4B22-AB71-C281487C11DB"
+                viewastext style="border-style: dashed; ">
+            <p>
+                Pon el texto que quieras mostrar si se abre la página con un browser no compatible
+                o si el ActiveX no está instalado correctamente.
+            </p>
+        </object>
+            <button type="button" id="myButton" class="btn btn-success" onclick="ActiveXBio_click();"><i class="glyphicon glyphicon-eye-open"></i> &nbsp;Capturar BioIdentidad</button> 
+            
+            <script language="javascript" type="text/javascript">
+    function ActiveXBio_click() {
+
+        
+
+        var nextRandomFromList = randomFromListGenerator([1, 2, 3, 4, 5]);
+        var newRandom = nextRandomFromList();
+
+        var vInformacionBiometrica =  'fefwer.ansi';
+
+        var returnCode = ActiveXBio.CapturaFirma(vInformacionBiometrica);
+        ActiveXBio.Dispose();
+        var msg = "myComComponent_BioIdentidad.MyFirstComCommand returned " + returnCode;
+        //alert(msg);
+        document.getElementById("vFileBioIdentidad").value = returnCode;
+        document.getElementById("ArchivoBioIdentidad").value = returnCode;
+
+        $('#vFileBioIdentidad').attr('value', returnCode);
+    }
+
+
+    function myComComponent_BioIdentidad_onload() {
+        setText("");
+        alert(myComComponent_BioIdentidad.MyFirstComCommand("Hi"));
+    }
+
+    function myComComponent_BioIdentidad_onunload() {
+        myComComponent_BioIdentidad.Dispose();
+    }
+
+     
+    var randomFromListGenerator = function (list) {
+        var position = 0;
+
+        for (var i = 0, l = list.length; i < l; i++) {
+            var random = Math.floor((Math.random() * l));
+            var aux = list[i];
+            list[i] = list[random];
+            list[random] = aux;
+        }
+
+        return function () {
+            return list[position++ % list.length];
+        }
+    }
+</script>
+
+</body>
+</html>
